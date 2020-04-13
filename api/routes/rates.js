@@ -1,47 +1,94 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 
+const Rate = require("../models/rate")
+
+// Get all currency rates from database
 router.get("/", (req, res, next) => {
-    res.status(200).json({
-        "message" : "Handling GET request to /rates"
-    });
+    Rate.find()
+    .select("_id name fullName rate code")
+    .exec()
+    .then(docs => {
+        console.log(docs)
+        res.status(200).json(docs);
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    })
 });
 
+// Add new currency rate
 router.post("/", (req, res, next) => {
-    res.status(200).json({
-        "message" : "Handling post request to /rates"
-    });
-});
-
-router.get("/:currencyName", (req, res, next) => {
-    const currencyName = req.params.currencyName;
-    res.status(200).json({
-        message : "Selected currency: " + currencyName
-    });
-});
-
-router.post("/:currencyName", (req, res, next) => {
-    const currency = {
-        name: req.body.name,
+    const rate = new Rate({
+        _id: mongoose.Types.ObjectId(),
+        code: req.body.code,
         fullName: req.body.fullName,
         rate: req.body.rate
-    }
-    const currencyName = req.params.currencyName;
-    res.status(200).json({
-        message : "Created currency: " + currencyName,
-        createdCurrency: currency
+    });
+
+    rate
+    .save()
+    .then(result => {
+        console.log(result)
+        res.status(201).json({
+            message : "Created new currency rate",
+            createdRate: rate
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    });
+
+    
     });
 });
 
-router.patch("/:currencyName", (req, res, next) => {
+// Get single currency rate
+router.get("/:currencyId", (req, res, next) => {
+    const id = req.params.currencyId;
+    Rate.findById(id)
+    .exec()
+    .then(doc => {
+        console.log(doc);
+        if(doc){
+            res.status(200).json(doc);
+        } else {
+            res.status(404).json({message: "No valid rate found for provided ID"})
+        }
+        
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
+    })
+});
+
+// Update Currency rate
+router.patch("/:currencyId", (req, res, next) => {
     res.status(200).json({
         "message" : "Updated currency"
     });
 });
 
-router.delete("/:currencyName", (req, res, next) => {
-    res.status(200).json({
-        "message" : "Deleted currency"
+// Delete Currency Rate
+router.delete("/:currencyId", (req, res, next) => {
+    const id = req.params.currencyId;
+    Rate.remove({_id: id})
+    .exec()
+    .then(result =>{
+        res.status(200).json(result);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
     });
 });
 
