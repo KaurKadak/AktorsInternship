@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+
+import Table from "./components/Table";
 import axios from "axios";
 
 class App extends Component {
 
   state = {
-    currencyData: []
-  };
+    currencyData : [],
+    buttonText : String
+  }
 
+  // Get rates
   componentDidMount(){
     axios
     .get("http://localhost:9000/rates")
@@ -29,14 +32,13 @@ class App extends Component {
       this.setState(newState);
     })
     .catch(err => console.log(err));
-
   }
- 
+
   render(){
     return (
       <div className="page">
         <h1 className="page_title">Currency Rates</h1>
-        <button onClick={console.log(this.state.currencyData)}>Click me</button>
+        <Table currencyData={this.state.currencyData}/>
       </div>
     );
   }

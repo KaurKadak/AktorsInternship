@@ -1,5 +1,10 @@
 .page{
-  
+  margin-right: auto; 
+  margin-left:  auto; 
+  max-width: 1280px; 
+  padding-right: 10px;
+  padding-left: 10px;
+  position: relative;
   
 }
 
@@ -8,6 +13,39 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  
+  color: black;
 }
+
+.box {
+  width: 40%;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.flex{
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
+  justify-content: space-around;
+ 
+}
+
+.button {
+  background-color: #555555;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  float: right;
+  font-size: 16px;
+  margin: 3px;
+}
+
+.button:active{
+  background-color: #262626;
+}
+
