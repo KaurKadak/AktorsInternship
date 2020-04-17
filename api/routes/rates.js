@@ -71,9 +71,21 @@ router.get("/:currencyId", (req, res, next) => {
 
 // Update Currency rate
 router.patch("/:currencyId", (req, res, next) => {
-    res.status(200).json({
-        "message" : "Updated currency"
+    const id = req.params.currencyId;
+    // const updateOperations = {};
+    // for (const ops of req.body){
+    //     updateOperations[ops.propName] = ops.value;
+    // }
+    Rate.update({_id: id}, {$set : {rate: req.body.rate}}).exec()
+    .then(result => {
+        console.log(result);
+        res.status(200).json(result);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error : err});
     });
+    
 });
 
 // Delete Currency Rate

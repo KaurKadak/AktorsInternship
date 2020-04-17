@@ -73,9 +73,9 @@ export class AddRateForm extends Component {
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="currency-code">
                             <Form.Label>Currency code:</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter valid currency code in UPPPERCASE" onChange={this.handleCurCodeChange}/>
+                            <Form.Control type="text"  placeholder="Enter currency code. Examples: USD, EUR, GBP" onChange={this.handleCurCodeChange}/>
                         </Form.Group>
-                        <Form.Group controlId="currency-code">
+                        <Form.Group controlId="currency-rate">
                             <Form.Label>Currency rate:</Form.Label>
                             <Form.Control type="text" onChange={this.handleCurRateChange}/>
                         </Form.Group>

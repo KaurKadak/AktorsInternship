@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import SingleCurrencyItem from "./CurrencyRateSingle";
-//import Modal from "react-bootstrap/Modal"
 import Form from "./AddRateForm"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
@@ -21,7 +20,7 @@ function Table(props) {
                 {props.currencyData.map(currency => (<SingleCurrencyItem key={currency.id} currency={currency}/>))}
             </div>
             
-            <Button variant="dark"  style={{float:"right"}} size="lg" onClick={setIsOpenTrue}>Add rate</Button>
+            <Button variant="dark"  style={{float:"right", margin: "2rem"}} size="lg" onClick={setIsOpenTrue}>Add rate</Button>
 
             <Modal show={isOpen} onHide={setIsOpenFalse}>
                 <Modal.Header closeButton>

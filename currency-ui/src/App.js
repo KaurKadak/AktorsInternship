@@ -36,9 +36,15 @@ class App extends Component {
 
   render(){
     return (
-      <div className="page">
-        <h1 className="page_title">Currency Rates</h1>
-        <Table currencyData={this.state.currencyData}/>
+      <div className="sides">
+        <div className="page">
+          <div className="page_title_bg">
+            <h1 className="page_title">Currency Rates</h1>
+          </div>
+          
+            <Table currencyData={this.state.currencyData}/>
+          
+        </div>
       </div>
     );
   }
